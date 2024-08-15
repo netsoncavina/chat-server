@@ -25,9 +25,12 @@ io.on('connection', (socket) => {
   });
 
   socket.on("sendMessage", (data) => {
-      console.log("user with id " + socket.id + " sent message " + data);
-      console.log(data.message)
+      console.log("user with id " + socket.id + " sent message " + data.roomId);
+      
+      socket.to(data.roomId).emit('receiveMessage', data)
   });
+
+
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
